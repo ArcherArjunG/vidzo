@@ -1,0 +1,120 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Vidzo</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Sidebar -->
+		<section id="sidebar">
+			<div class="inner">
+				<nav>
+					<ul>
+						<li><a href="#intro">Welcome</a></li>
+						<li><a href="#one">Why Our Tool?</a></li>
+					</ul>
+				</nav>
+			</div>
+		</section>
+
+		<!-- Wrapper -->
+		<div id="wrapper">
+
+			<!-- Intro -->
+			<section id="intro" class="wrapper style1 fullscreen fade-up">
+				<div class="inner">
+					<h1>Vidzo</h1>
+					<p>Your no crap, clean, and simple YouTube to MP4 converter!</p>
+					<form id="downloadForm">
+						<input type="text" id="videoURL" name="videoURL" placeholder="Enter YouTube Video URL" style="width: 100%; padding: 1em; font-size: 1em;" required />
+						<br><br>
+						<button type="submit" class="button primary" id="downloadBtn">Convert!</button>
+					</form>
+					<br>
+					<progress id="progressBar" value="0" max="100" style="display: none; width: 100%; height: 20px;"></progress>
+					<p id="etaText" style="margin-top: 1em;">ETA : Waiting For Download To Begin</p>
+					<div id="downloadSection" style="display: none; margin-top: 20px;">
+						<a id="downloadLink" href="#" class="button primary" download>Download</a>
+						<br><br>
+						<button id="resetBtn" class="button">Convert another video?</button>
+					</div>
+				</div>
+			</section>
+
+			<!-- One -->
+			<section id="one" class="wrapper style2 spotlights">
+				<section>
+					<div class="content">
+						<div class="inner">
+							<h2>A No Ads, No Bloats, YouTube to MP4 Converter!</h2>
+							<p>Yeah I know, its a pain to get a YouTube To MP4 converter, that doesn't look sketchy, or is a total scam.</p>
+							<p>And that's why I created this! Based on just a simple Python Code (which you can find on my GitHub page) and some HTML to make it look good, this YT to MP4 converter is the perfect option for a safe conversion.</p>
+							<ul class="actions">
+								<li><a href="https://github.com/ArcherArjunG/vidzo/tree/main" class="button">The Code</a></li>
+							</ul>
+						</div>
+					</div>
+				</section>
+			</section>
+
+		</div>
+		<!-- Footer -->
+		<footer id="footer" class="wrapper style1-alt">
+			<div class="inner">
+				<ul class="menu">
+					<li>&copy; Arjun Gawande. All rights reserved.</li>
+				</ul>
+			</div>
+		</footer>
+
+		<!-- Scripts -->
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/jquery.scrollex.min.js"></script>
+		<script src="assets/js/jquery.scrolly.min.js"></script>
+		<script src="assets/js/browser.min.js"></script>
+		<script src="assets/js/breakpoints.min.js"></script>
+		<script src="assets/js/util.js"></script>
+		<script src="assets/js/main.js"></script>
+		<script>
+			document.getElementById('downloadForm').addEventListener('submit', function (e) {
+				e.preventDefault();
+				const url = document.getElementById('videoURL').value;
+				const downloadBtn = document.getElementById('downloadBtn');
+				const progressBar = document.getElementById('progressBar');
+				const etaText = document.getElementById('etaText');
+				const resetBtn = document.getElementById('resetBtn');
+				const downloadSection = document.getElementById('downloadSection');
+				const downloadLink = document.getElementById('downloadLink');
+
+				downloadBtn.textContent = 'Converting...';
+				progressBar.style.display = 'block';
+				etaText.textContent = 'Converting...';
+
+				let progress = 0;
+				const interval = setInterval(() => {
+					progress += Math.random() * 10;
+					progressBar.value = progress;
+					etaText.textContent = `ETA: ${(10 - progress / 10).toFixed(1)}s`;
+					if (progress >= 100) {
+						clearInterval(interval);
+						progressBar.value = 100;
+						etaText.textContent = 'Download Complete!';
+						downloadBtn.style.display = 'none';
+						downloadSection.style.display = 'block';
+						// Replace with real file path if needed
+						downloadLink.href = '/downloads/output.mp4';
+					}
+				}, 400);
+			});
+
+			document.getElementById('resetBtn').addEventListener('click', function () {
+				window.location.reload();
+			});
+		</script>
+
+	</body>
+</html>
